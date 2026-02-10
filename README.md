@@ -1,83 +1,92 @@
-# 🏥 Healthcare Cost Analysis Dashboard (Tableau)
+# 🏥 Analisis Biaya Kesehatan (Healthcare Cost Analysis) – Tableau
 
-## 📌 Project Overview
-This project analyzes **healthcare costs** to identify **key drivers of high medical expenses** using **data visualization and business intelligence** with **Tableau**.
+## 📌 Gambaran Proyek
+Proyek ini bertujuan untuk menganalisis **biaya kesehatan** dan mengidentifikasi **faktor utama penyebab tingginya biaya**, menggunakan pendekatan **Business Intelligence dan Data Visualization** dengan **Tableau**.
 
-The analysis focuses on:
-- Understanding the distribution of healthcare costs
-- Identifying **high-cost patients**
-- Exploring major risk factors such as **smoking behavior, age, and BMI**
-- Providing **data-driven recommendations** for cost management
+Analisis difokuskan pada:
+- Pola distribusi biaya kesehatan
+- Identifikasi pasien dengan **biaya tinggi (High Cost Patient)**
+- Analisis faktor risiko utama seperti **kebiasaan merokok, usia, dan BMI**
+- Penyusunan **rekomendasi berbasis data** untuk pengendalian biaya
 
 ---
 
 ## 📂 Dataset
-The dataset contains patient-level healthcare information with the following variables:
+Dataset berisi data pasien dengan variabel berikut:
+- `age` (usia)
+- `sex` (jenis kelamin)
+- `bmi` (Body Mass Index)
+- `children` (jumlah tanggungan anak)
+- `smoker` (status merokok)
+- `region` (wilayah)
+- `charges` (biaya kesehatan)
 
-- `age`
-- `sex`
-- `bmi`
-- `children`
-- `smoker`
-- `region`
-- `charges` (medical cost)
-
-**Total records:** 1,337 patients
-
----
-
-## 🧹 Data Cleaning & Preparation
-Data preparation was performed directly in **Tableau** to ensure the dataset was ready for analysis and visualization.
-
-### Data Quality Checks
-- No significant missing values
-- No duplicate records
-- Numerical values fall within reasonable ranges
-
-### Data Type Adjustment
-- **Measures:** Age, BMI, Charges  
-- **Dimensions:** Sex, Smoker, Region, Children  
+**Jumlah data:** 1.337 pasien
 
 ---
 
-## 🔄 Data Transformation
+## 🧹 Pembersihan & Persiapan Data (Data Cleaning & Preparation)
 
-### 🔹 Age Group
-Age was grouped into:
+Tahapan pembersihan dan persiapan data dilakukan langsung di **Tableau** untuk memastikan data siap dianalisis.
+
+### Pemeriksaan Kualitas Data
+- Tidak ditemukan nilai kosong (null) yang signifikan
+- Terdapat 1 data duplikat, 1 data duplikat tersebut dihapus untuk menghindari bias pada perhitungan biaya
+- Nilai numerik berada dalam rentang yang wajar
+
+### Penyesuaian Tipe Data
+- **Measure (Numerik):**
+  - Age
+  - BMI
+  - Charges
+- **Dimension (Kategorikal):**
+  - Sex
+  - Smoker
+  - Region
+  - Children
+
+---
+
+## 🔄 Transformasi Data
+
+Transformasi data dilakukan untuk menyederhanakan analisis dan menyesuaikan dengan konteks bisnis kesehatan.
+
+### 🔹 Pengelompokan Usia (Age Group)
+Usia dikelompokkan menjadi:
 - `<30`
 - `30–45`
 - `46–64`
 
-**Reason:**  
-Healthcare costs do not increase linearly by age but tend to rise at specific life stages.
+**Alasan:**  
+Biaya kesehatan tidak meningkat secara linear per tahun, melainkan cenderung meningkat pada kelompok usia tertentu.
 
 ---
 
-### 🔹 BMI Category
-BMI values were categorized as:
+### 🔹 Kategori BMI (BMI Category)
+BMI dikategorikan menjadi:
 - Underweight
 - Ideal
 - Overweight
 - Obese
 
-**Reason:**  
-BMI categories are more meaningful for healthcare risk analysis than raw BMI values.
+**Alasan:**  
+Kategori BMI lebih relevan untuk analisis risiko kesehatan dibandingkan nilai BMI mentah.
 
 ---
 
-### 🔹 Cost Category (Percentile-based)
-Healthcare costs were segmented using percentiles:
-- **Low Cost:** Bottom 10%
-- **Normal Cost:** Middle 80%
-- **High Cost:** Top 10%
+### 🔹 Kategori Biaya Kesehatan (Cost Category – Percentile Based)
+Biaya kesehatan dikelompokkan berdasarkan distribusi data:
+- **Low Cost** → 10% terbawah
+- **Normal Cost** → 80% tengah
+- **High Cost** → 10% teratas
 
-**Reason:**  
-Cost distribution is highly right-skewed, making percentile-based segmentation more robust than fixed thresholds.
+**Alasan:**  
+Distribusi biaya sangat tidak merata (right-skewed), sehingga pendekatan berbasis persentil lebih adil dibandingkan batas nominal tetap.
 
 ---
 
-## 🧮 Calculated Fields
-The following calculated fields were created in Tableau:
+## 🧮 Calculated Field
+Beberapa calculated field dibuat di Tableau untuk mendukung analisis:
 - Age Group
 - BMI Category
 - Cost Category
@@ -85,70 +94,64 @@ The following calculated fields were created in Tableau:
 
 ---
 
-## 📊 Exploratory Data Analysis (EDA)
+## 📊 Eksplorasi & Analisis Data (EDA)
 
-### Dashboard 1 — Healthcare Cost Overview
-**Purpose:** Provide a high-level overview of healthcare costs.
+### 📊 Dashboard 1 — Overview Biaya Kesehatan
+**Tujuan:** Memberikan gambaran umum kondisi biaya kesehatan.
 
-**Visualizations:**
-- KPI Cards (Total Cost, Average Cost, High Cost Ratio)
-- Cost Distribution Histogram
-- Cost Category Pie Chart
-- Smoker vs Non-Smoker Cost Comparison
+**Visualisasi:**
+- KPI Cards (Total Biaya, Rata-rata Biaya, Rasio High Cost)
+- Histogram Distribusi Biaya
+- Pie Chart Kategori Biaya
+- Perbandingan Biaya Perokok vs Non-Perokok
 
-**Key Findings:**
-- Healthcare costs are not evenly distributed
-- Approximately **10% of patients fall into the High Cost category**
-- Smokers incur significantly higher medical costs than non-smokers
-
----
-
-### Dashboard 2 — Risk & Impact Analysis
-**Purpose:** Identify high-risk patient segments.
-
-**Visualizations:**
-- Scatter Plot (Age vs Charges)
-- Average Charges by Age Group
-- Average Charges by BMI Category
-- Risk Heatmap (Age Group × BMI Category)
-
-**Key Findings:**
-- Medical costs increase with age
-- Obese patients have the highest average costs
-- The combination of older age and high BMI represents the highest cost risk
+**Insight Utama:**
+- Biaya kesehatan tidak terdistribusi secara merata
+- Sekitar **10% pasien masuk kategori High Cost**
+- Pasien perokok memiliki biaya kesehatan jauh lebih tinggi
 
 ---
 
-## 💡 Key Insights
-- Healthcare costs are **highly skewed**, with a small group driving most expenses
-- **Smoking behavior** is the most dominant cost driver
-- Risk increases further when smoking is combined with **older age** and **high BMI**
-- Gender, region, and number of children show relatively minor impact on cost variation
+### 📈 Dashboard 2 — Analisis Risiko & Dampak
+**Tujuan:** Mengidentifikasi kelompok pasien dengan risiko biaya tinggi.
+
+**Visualisasi:**
+- Scatter Plot (Usia vs Biaya)
+- Rata-rata Biaya per Kelompok Usia
+- Rata-rata Biaya per Kategori BMI
+- Heatmap Risiko (Kelompok Usia × Kategori BMI)
+
+**Insight Utama:**
+- Biaya meningkat seiring bertambahnya usia
+- Pasien dengan BMI obesitas memiliki biaya tertinggi
+- Kombinasi usia lanjut dan BMI tinggi membentuk area risiko biaya paling tinggi
 
 ---
 
-## ✅ Recommendations
-Based on the analysis:
-- Prioritize preventive healthcare programs targeting **smokers**
-- Promote weight management and healthy lifestyle initiatives
-- Apply preventive monitoring for high-risk age groups
-- Adopt **risk-based strategies** rather than uniform cost management approaches
+## 💡 Insight Utama
+- Biaya kesehatan sangat **tidak merata**, dengan konsentrasi pada sebagian kecil pasien
+- **Merokok** merupakan faktor paling dominan dalam peningkatan biaya
+- Risiko biaya semakin tinggi ketika dikombinasikan dengan **usia** dan **BMI tinggi**
+- Faktor **jenis kelamin, wilayah, dan jumlah anak** memiliki pengaruh relatif kecil
 
 ---
 
-## 🛠 Tools & Technologies
-- Tableau Desktop
-- Microsoft PowerPoint (storytelling & presentation)
-- GitHub (project documentation)
+## ✅ Rekomendasi Berbasis Data
+Berdasarkan hasil analisis, rekomendasi yang diberikan:
+- Fokus pada program pencegahan dan edukasi bagi pasien **perokok**
+- Program pengelolaan berat badan untuk pasien dengan **BMI tinggi**
+- Pendekatan preventif dan monitoring kesehatan pada **kelompok usia berisiko**
+- Penerapan strategi berbasis risiko untuk pengendalian biaya kesehatan
 
 ---
 
-## 📁 Project Outputs
-- Tableau Dashboard (`.twbx`)
-- Presentation Slides (`.pptx`)
-- Project Documentation (`README.md`)
+
+## 📁 Output Proyek
+- File Tableau Dashboard (`.twbx`)
+- Slide Presentasi (`canva`)
+- Dokumentasi Proyek (`README.md`)
 
 ---
 
-## 📌 Conclusion
-This project demonstrates how interactive dashboards and data-driven analysis can effectively identify high-cost patient segments and support better decision-making in healthcare cost management.
+## 📌 Kesimpulan
+Analisis ini menunjukkan bahwa visualisasi data dan dashboard interaktif dapat membantu mengidentifikasi kelompok pasien berbiaya tinggi secara efektif, sehingga mendukung pengambilan keputusan yang lebih tepat dalam pengelolaan biaya kesehatan.
